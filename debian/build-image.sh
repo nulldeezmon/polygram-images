@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "Polygram Debian Image Builder"
-SIZE="8G"
+SIZE="512M"
 #FILENAME="polygram-debian-$(date +%Y_%m_%d-%k_%M).img"
 FILENAME="polygram-debian.img"
 ROOT_PASS="polygram"
@@ -11,7 +11,7 @@ mkfs.ext4 "$FILENAME"
 mount "$FILENAME" /mnt
 debootstrap trixie /mnt http://deb.debian.org/debian || exit 1
 echo "/dev/ubda  /   ext4     discard,errors=remount-ro  0  1" | tee /mnt/etc/fstab
-echo "/dev/ubdb  /lib/modules default                    0  0" | tee /mnt/etc/fstab
+echo "/dev/ubdb  /lib/modules ext4 discard,errors=remount-ro  0  0" | tee /mnt/etc/fstab
 cp ../files/polygram-init-network /mnt/usr/bin
 chmod u+x /mnt/usr/bin/polygram-init-network
 cp ../files/polygram-network.service /mnt/etc/systemd/system
