@@ -9,7 +9,7 @@ ROOT_PASS="polygram"
 fallocate -l "$SIZE" "$FILENAME"
 mkfs.ext4 "$FILENAME"
 mount "$FILENAME" /mnt
-debootstrap bookworm /mnt http://deb.debian.org/debian || exit 1
+debootstrap trixie /mnt http://deb.debian.org/debian || exit 1
 echo "/dev/ubd0  /   ext4     discard,errors=remount-ro  0  1" | tee /mnt/etc/fstab
 echo "/dev/ubd1  /lib/modules default                    0  0" | tee /mnt/etc/fstab
 cp ../files/polygram-init-network /mnt/usr/bin
